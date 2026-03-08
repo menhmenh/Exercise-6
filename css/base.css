@@ -1,0 +1,142 @@
+/* Base CSS styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.header {
+    background-color: #e67e22;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+    color: #333;
+    font-size: 2.5em;
+    font-weight: bold;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    background-color: #fefbf7;
+}
+
+.container h2 {
+    color: #333;
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.container p {
+    color: #666;
+    font-size: 1.1em;
+    margin-bottom: 30px;
+}
+
+/* Filters Section */
+.filters-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.filters-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.filters-group label {
+    font-weight: bold;
+    color: #333;
+    font-size: 1em;
+}
+
+/* Filter Buttons */
+.filter-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    color: white;
+}
+
+.filter-btn.tech {
+    background-color: #d97834;
+}
+
+.filter-btn.size {
+    background-color: #d97834;
+}
+
+.filter-btn:hover {
+    opacity: 0.8;
+    transform: translateY(-2px);
+}
+
+.filter-btn.active {
+    background-color: #f39c12;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.filter-btn.inactive {
+    background-color: #bdc3c7;
+    opacity: 0.6;
+}
+
+/* Chart Container */
+.chart-container {
+    background-color: #fefbf7;
+    padding: 20px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Scatterplot description text */
+.scatterplot-description {
+    color: #555;
+    font-size: 1.05em;
+    margin: 30px 0 10px 0;
+}
+
+/* Data source section */
+.data-source {
+    margin-top: 30px;
+    padding: 10px 0;
+    font-size: 0.95em;
+    color: #333;
+}
+
+.data-source a {
+    color: #e67e22;
+    text-decoration: none;
+}
+
+.data-source a:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+.footer {
+    background-color: #4a3420;
+    color: #ccc;
+    text-align: center;
+    padding: 18px;
+    font-size: 0.95em;
+    margin-top: 40px;
+}

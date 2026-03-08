@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TV Energy Consumption</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/visualisations.css">
+</head>
+<body>
+    <div class="header">
+        <h1>TV Energy Consumption</h1>
+    </div>
+    
+    <div class="container">
+        <h2>Energy Consumption for different TV screen types and sizes</h2>
+        <p>Most TV's on sale in Australia are LED and they vary considerably in energy consumption.</p>
+        
+        <div class="filters-section">
+            <div id="filters-screentech" class="filters-group">
+                <label>Screen Technology:</label>
+            </div>
+            <div id="filters-screensize" class="filters-group">
+                <label>Screen Size:</label>
+            </div>
+        </div>
+        
+        <div id="chart" class="chart-container"></div>
+        
+        <p class="scatterplot-description">TVs with same star rating can have very different energy consumption. It all depends on screen size and technology type.</p>
+        
+        <div id="scatterplot" class="chart-container"></div>
+    </div>
+    
+    <div class="footer">
+        &copy; 2025 Data Visualisation Week 6
+    </div>
+    
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="js/shared-constants.js"></script>
+    <script src="js/load-data.js"></script>
+    <script src="js/histogram.js"></script>
+    <script src="js/scatterplot.js"></script>
+    <script src="js/interactions.js"></script>
+</body>
+</html>

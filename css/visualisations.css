@@ -1,0 +1,104 @@
+/* Visualization styles */
+
+/* SVG Container */
+#chart svg {
+    background-color: #fefbf7;
+    border-radius: 4px;
+    overflow: visible;
+}
+
+#scatterplot svg {
+    background-color: #fefbf7;
+    border-radius: 4px;
+    overflow: visible; /* allows tooltip to render above the SVG top edge */
+}
+
+/* Histogram Bars */
+.bar {
+    fill: #555555;
+    transition: fill 0.3s ease;
+}
+
+.bar:hover {
+    fill: #888888;
+    opacity: 0.9;
+}
+
+/* Scatterplot Dots */
+.dot {
+    transition: opacity 0.2s ease;
+    cursor: pointer;
+}
+
+.dot:hover {
+    opacity: 1 !important;
+    r: 6;
+    transition: r 0.2s ease;
+}
+
+/* Axes */
+.axis {
+    font-size: 12px;
+    color: #333;
+}
+
+.axis-label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+.x-axis-label,
+.y-axis-label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Grid lines */
+.grid-line {
+    stroke: #e0e0e0;
+    stroke-dasharray: 4;
+    opacity: 0.5;
+}
+
+/* Axis lines */
+.axis path,
+.axis line {
+    stroke: #333;
+    stroke-width: 1.5px;
+}
+
+/* Text styling */
+.axis text {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    color: #333;
+}
+
+/* Tooltip styling */
+.tooltip {
+    pointer-events: none;
+}
+
+.tooltip-text {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    fill: white;
+}
+
+/* Legend styling */
+.legend {
+    font-size: 12px;
+}
+
+.legend rect {
+    transition: opacity 0.2s ease;
+}
+
+.legend text {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    fill: #333;
+}
