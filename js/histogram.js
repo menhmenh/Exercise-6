@@ -1,10 +1,13 @@
 function drawHistogram(data) {
 
     d3.select('#chart').selectAll('svg').remove();
-    
+
+    const totalWidth = width + margin.left + margin.right;
+    const totalHeight = height + margin.top + margin.bottom;
+
     const svg = d3.select('#chart').append('svg')
-        .attr('width', width + margin.left + margin.right)
-        .attr('height', height + margin.top + margin.bottom);
+        .attr('viewBox', `0 0 ${totalWidth} ${totalHeight}`)
+        .attr('preserveAspectRatio', 'xMidYMid meet');
 
     const g = svg.append('g')
         .attr('transform', `translate(${margin.left},${margin.top})`);
