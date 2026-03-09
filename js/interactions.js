@@ -1,5 +1,5 @@
 function populateFilters() {
-  
+
     d3.select('#filters-screentech')
         .selectAll('.filter-btn.tech')
         .data(filters_screentech)
@@ -9,7 +9,7 @@ function populateFilters() {
         .text(d => d.label)
         .classed('active', d => d.isActive)
         .classed('inactive', d => !d.isActive)
-        .on('click', function(event, d) {
+        .on('click', function (event, d) {
 
             if (d.id === 'all') {
                 filters_screentech.forEach(filter => {
@@ -27,8 +27,8 @@ function populateFilters() {
                 .selectAll('.filter-btn.tech')
                 .classed('active', d => d.isActive)
                 .classed('inactive', d => !d.isActive);
-            
-            if (filters_screentech.find(f => f.id === 'all').isActive && 
+
+            if (filters_screentech.find(f => f.id === 'all').isActive &&
                 filters_screentech.filter(f => f.id !== 'all').every(f => f.isActive)) {
                 currentFilterScreenTech = 'all';
             } else {
@@ -36,11 +36,11 @@ function populateFilters() {
                     .filter(f => f.isActive && f.id !== 'all')
                     .map(f => f.id);
             }
-            
+
             console.log('Screen tech filter:', currentFilterScreenTech);
             updateHistogram();
         });
-    
+
     d3.select('#filters-screensize')
         .selectAll('.filter-btn.size')
         .data(filters_screensize)
@@ -50,26 +50,26 @@ function populateFilters() {
         .text(d => d.label)
         .classed('active', d => d.isActive)
         .classed('inactive', d => !d.isActive)
-        .on('click', function(event, d) {
-            
+        .on('click', function (event, d) {
+
             if (d.id === 'allsizes') {
                 filters_screensize.forEach(filter => {
                     filter.isActive = true;
                 });
                 d.isActive = true;
             } else {
-                
+
                 const allFilter = filters_screensize.find(f => f.id === 'allsizes');
                 allFilter.isActive = false;
                 d.isActive = !d.isActive;
             }
-            
+
             d3.select('#filters-screensize')
                 .selectAll('.filter-btn.size')
                 .classed('active', d => d.isActive)
                 .classed('inactive', d => !d.isActive);
-            
-            if (filters_screensize.find(f => f.id === 'allsizes').isActive && 
+
+            if (filters_screensize.find(f => f.id === 'allsizes').isActive &&
                 filters_screensize.filter(f => f.id !== 'allsizes').every(f => f.isActive)) {
                 currentFilterScreenSize = 'allsizes';
             } else {
@@ -77,7 +77,7 @@ function populateFilters() {
                     .filter(f => f.isActive && f.id !== 'allsizes')
                     .map(f => parseInt(f.id));
             }
-            
+
             console.log('Screen size filter:', currentFilterScreenSize);
             updateHistogram();
         });
@@ -86,22 +86,22 @@ function populateFilters() {
 function updateHistogram() {
 
     let updatedData = globalData;
-    
+
 
     if (currentFilterScreenTech !== 'all') {
-        updatedData = updatedData.filter(d => 
+        updatedData = updatedData.filter(d =>
             currentFilterScreenTech.includes(d.screenTech)
         );
     }
-    
+
     if (currentFilterScreenSize !== 'allsizes') {
-        updatedData = updatedData.filter(d => 
+        updatedData = updatedData.filter(d =>
             currentFilterScreenSize.includes(d.screenSize)
         );
     }
-    
+
     console.log('Updated data after filters:', updatedData.length, 'records');
-    
+
     const updatedBins = binGenerator(updatedData);
 
     // Round yMax up to nearest 100 to keep axis tidy
@@ -127,6 +127,17 @@ function updateHistogram() {
         .transition()
         .duration(750)
         .call(yAxis);
+
+    // In case width changed between filter clicks, also update the x axis
+    const numTicksX = width < 500 ? 5 : 10;
+    const xAxis = d3.axisBottom(xScale)
+        .ticks(numTicksX)
+        .tickFormat(d3.format(","));
+
+    g.select('.x-axis')
+        .transition()
+        .duration(750)
+        .call(xAxis);
 }
 
 function createTooltip() {
@@ -145,10 +156,10 @@ function createTooltip() {
 
     tooltip.append('text')
         .attr('class', 'tooltip-text')
-        .attr('x', tooltipWidth / 2)          
-        .attr('y', tooltipHeight / 2)          
-        .attr('dominant-baseline', 'middle')    
-        .attr('text-anchor', 'middle')          
+        .attr('x', tooltipWidth / 2)
+        .attr('y', tooltipHeight / 2)
+        .attr('dominant-baseline', 'middle')
+        .attr('text-anchor', 'middle')
         .attr('fill', 'white')
         .attr('font-size', '22px')
         .attr('font-weight', 'bold');
@@ -160,7 +171,7 @@ function handleMouseEvents() {
 
     innerChartS.selectAll('.dot')
 
-        .on('mouseenter', function(e, d) {
+        .on('mouseenter', function (e, d) {
             console.log('Mouse entered circle', d);
             console.log('Event:', e);
 
@@ -174,13 +185,13 @@ function handleMouseEvents() {
             const tooltipY = circleY - tooltipHeight - 12;
 
             innerChartS.select('.tooltip')
-                .raise()                        
+                .raise()
                 .attr('transform', `translate(${tooltipX},${tooltipY})`)
                 .transition()
                 .duration(150)
                 .style('opacity', 1);
         })
-        .on('mouseleave', function() {
+        .on('mouseleave', function () {
             innerChartS.select('.tooltip')
                 .transition()
                 .duration(200)

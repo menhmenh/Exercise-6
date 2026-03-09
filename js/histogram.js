@@ -1,35 +1,36 @@
 function drawHistogram(data) {
 
+    updateDimensions('#chart');
+
     d3.select('#chart').selectAll('svg').remove();
 
-    const totalWidth = width + margin.left + margin.right;
-    const totalHeight = height + margin.top + margin.bottom;
-
     const svg = d3.select('#chart').append('svg')
-        .attr('viewBox', `0 0 ${totalWidth} ${totalHeight}`)
-        .attr('preserveAspectRatio', 'xMidYMid meet');
+        .attr('width', width + margin.left + margin.right)
+        .attr('height', height + margin.top + margin.bottom);
 
     const g = svg.append('g')
         .attr('transform', `translate(${margin.left},${margin.top})`);
-    
+
     g.append('rect')
         .attr('width', width)
         .attr('height', height)
         .attr('fill', bodyBackgroundColor);
-    
+
     const bins = binGenerator(data);
     console.log('Bins created:', bins);
     console.log('Number of bins:', bins.length);
 
+    // Initial Y scale based on updating histogram logic
+    // we want to ensure it calculates correct maximum based on filtered data, but drawHistogram uses all data initially
     const rawYMax = Math.max(...bins.map(bin => bin.length));
     const yMax = Math.ceil(rawYMax / 100) * 100;
     yScale.domain([0, yMax]);
 
     console.log('X domain: [0, 2800] (fixed)');
     console.log('Y domain:', [0, yMax]);
-    
+
     const barWidth = (xScale(bins[0].x1) - xScale(bins[0].x0));
-    
+
     g.selectAll('.bar')
         .data(bins)
         .enter()
@@ -41,8 +42,11 @@ function drawHistogram(data) {
         .attr('height', d => height - yScale(d.length))
         .attr('fill', barColor);
 
+    // Adjust number of ticks based on available width
+    const numTicksX = width < 500 ? 5 : 10;
+
     const xAxis = d3.axisBottom(xScale)
-        .tickValues(d3.range(0, 2801, 200))
+        .ticks(numTicksX)
         .tickFormat(d3.format(","));
 
     g.append('g')

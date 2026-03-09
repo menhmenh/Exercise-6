@@ -1,8 +1,8 @@
 const margin = { top: 70, right: 20, bottom: 50, left: 65 };
-const width = 900 - margin.left - margin.right;
-const height = 500 - margin.top - margin.bottom;
+let width = 900 - margin.left - margin.right;
+let height = 500 - margin.top - margin.bottom;
 
-const bodyBackgroundColor = '#fefbf7';  // warm cream matching the page background
+const bodyBackgroundColor = '#fefbf7';  
 const barColor = '#555555';
 const primaryColor = '#e67e22';
 const secondaryColor = '#d97834';
@@ -33,12 +33,10 @@ const filters_screensize = [
 ];
 
 const xScale = d3.scaleLinear()
-    .domain([0, 2800])
-    .range([0, width]);
+    .domain([0, 2800]);
 
 const yScale = d3.scaleLinear()
-    .domain([0, 1300])
-    .range([height, 0]);
+    .domain([0, 1300]);
 
 // Bins of 200 kWh each, covering full data range to 2800
 const binGenerator = d3.bin()
@@ -48,16 +46,29 @@ const binGenerator = d3.bin()
 
 let innerChartS = null;
 
-const xScaleS = d3.scaleLinear()
-    .range([0, width]);
+const xScaleS = d3.scaleLinear();
 
-const yScaleS = d3.scaleLinear()
-    .range([height, 0]);
+const yScaleS = d3.scaleLinear();
 
 const tooltipWidth = 110;
 const tooltipHeight = 50;
 const tooltipPadding = 10;
 
-
 const colorScale = d3.scaleOrdinal()
     .range(['#1f77b4', '#ff7f0e', '#2ca02c']); // Blue for LED, Orange for LCD, Green for OLED
+
+function updateDimensions(containerSelector, aspectHeight = 0.55) {
+    const container = d3.select(containerSelector).node();
+    const targetWidth = container.getBoundingClientRect().width;
+
+    width = targetWidth - margin.left - margin.right;
+    height = targetWidth * aspectHeight - margin.top - margin.bottom;
+
+    // Ensure minimum height
+    if (height < 200) height = 200;
+
+    xScale.range([0, width]);
+    yScale.range([height, 0]);
+    xScaleS.range([0, width]);
+    yScaleS.range([height, 0]);
+}
